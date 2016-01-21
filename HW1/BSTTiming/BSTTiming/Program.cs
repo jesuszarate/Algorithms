@@ -35,10 +35,6 @@ namespace BSTTiming
                     Console.WriteLine(line);
                     file.WriteLine(line);
                 }
-                for (int i = 10; i <= 20; i++) 
-                { 
-                    file.WriteLine(Math.Pow(2, i)); 
-                }
             }
             Console.WriteLine("Finished");
             Console.Read();
@@ -48,11 +44,7 @@ namespace BSTTiming
         {
             // Construct a randomly-generated balanced 
             //binary search tree
-            SortedSet<int> bst = new SortedSet<int>();
-            for(int i = 0; i < size; i++)
-            {
-                bst.Add(i);
-            }
+            SortedSet<int> bst = generateTree(size);
 
             // Create a stopwatch
             Stopwatch sw = new Stopwatch();
@@ -90,20 +82,34 @@ namespace BSTTiming
                 {
                     for (int elt = 0; elt < size; elt++)
                     {
-                        //BinarySearch(data, elt);
+                        bst.Contains(elt);
                     }
                 }
                 sw.Stop();
                 elapsed = msecs(sw);
             } while (elapsed < DURATION);
             double overheadAverage = elapsed / repetitions;
-
-            // Display the raw data as a sanity check
-            //Console.WriteLine("Total avg:    " + totalAverage.ToString("G2"));
-            //Console.WriteLine("Overhead avg: " + overheadAverage.ToString("G2"));
-
+            
             // Return the difference, averaged over size
             return (totalAverage - overheadAverage)/ size;
+        }
+
+        private static SortedSet<int> generateTree(int size)
+        {
+            SortedSet<int> bst = new SortedSet<int>();
+            Random random = new Random(size);
+            int number;
+            for (int i = 0; i < size; i++)
+            {
+                do
+                {
+                    number = random.Next();
+                } while (bst.Contains(number));
+
+                bst.Add(number);
+            }
+            
+            return bst;
         }
 
         /// <summary>
