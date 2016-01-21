@@ -35,6 +35,10 @@ namespace BSTTiming
                     Console.WriteLine(line);
                     file.WriteLine(line);
                 }
+                for (int i = 10; i <= 20; i++) 
+                { 
+                    file.WriteLine(Math.Pow(2, i)); 
+                }
             }
             Console.WriteLine("Finished");
             Console.Read();
