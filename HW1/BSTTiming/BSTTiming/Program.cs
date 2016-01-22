@@ -18,6 +18,10 @@ namespace BSTTiming
 
         static void Main(string[] args)
         {
+            //testRandomAddition(10);
+            //Console.Read();
+            //return;
+
             String line;
             using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\Users\Jesus Zarate\Desktop\timingResults.txt"))
             {
@@ -40,6 +44,19 @@ namespace BSTTiming
             Console.Read();
         }
 
+        private static void testRandomAddition(int p)
+        {
+            //SortedSet<int> bst = generateTree(p);
+
+            for (int i = 0; i < p; i++)
+            {
+                generateTree(p);
+                Console.WriteLine("______________________________________________");
+                //Console.WriteLine(num + " ");
+            }
+            
+        }
+
         public static double RunBSTTiming(int size)
         {
             // Construct a randomly-generated balanced 
@@ -49,6 +66,9 @@ namespace BSTTiming
             // Create a stopwatch
             Stopwatch sw = new Stopwatch();
 
+            Random random = new Random();
+
+            int num = 0;
             // Keep increasing the number of repetitions until one second elapses.
             double elapsed = 0;
             long repetitions = 1;
@@ -58,9 +78,10 @@ namespace BSTTiming
                 sw.Restart();
                 for (int i = 0; i < repetitions; i++)
                 {
-                    for (int elt = 0; elt < size; elt++)
+                    for (int elt = 0; elt < 1024; elt++)
                     {
-                        bst.Contains(elt);
+                        num = random.Next(0, size);
+                        bst.Contains(num);
                     }
                 }
                 sw.Stop();
@@ -82,7 +103,8 @@ namespace BSTTiming
                 {
                     for (int elt = 0; elt < size; elt++)
                     {
-                        bst.Contains(elt);
+                        num = random.Next(0, size);
+                        //bst.Contains(elt);
                     }
                 }
                 sw.Stop();
@@ -97,13 +119,13 @@ namespace BSTTiming
         private static SortedSet<int> generateTree(int size)
         {
             SortedSet<int> bst = new SortedSet<int>();
-            Random random = new Random(size);
+            Random random = new Random(Guid.NewGuid().GetHashCode());
             int number;
             for (int i = 0; i < size; i++)
             {
                 do
                 {
-                    number = random.Next();
+                    number = random.Next(0, size);
                 } while (bst.Contains(number));
 
                 bst.Add(number);
