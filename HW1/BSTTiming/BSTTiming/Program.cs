@@ -18,10 +18,7 @@ namespace BSTTiming
 
         static void Main(string[] args)
         {
-            //testRandomAddition(10);
-            //Console.Read();
-            //return;
-
+            
             String line;
             using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\Users\Jesus Zarate\Desktop\timingResults.txt"))
             {
@@ -34,9 +31,6 @@ namespace BSTTiming
                     SIZE = (int)Math.Pow(2, i);
                     line = RunBSTTiming(SIZE) + "";
 
-                    // Comment me
-                    //Console.WriteLine(SIZE);
-
                     // Uncomment me
                     Console.WriteLine(line);
                     file.WriteLine(line);
@@ -46,25 +40,11 @@ namespace BSTTiming
             Console.Read();
         }
 
-        private static void testRandomAddition(int p)
-        {
-            //SortedSet<int> bst = generateTree(p);
-
-            for (int i = 0; i < p; i++)
-            {
-                generateTree(p);
-                Console.WriteLine("______________________________________________");
-                //Console.WriteLine(num + " ");
-            }
-            
-        }
-
         public static double RunBSTTiming(int size)
         {
             // Construct a randomly-generated balanced 
             //binary search tree
             SortedSet<int> bst = generateTree(size);
-            //Console.WriteLine(bst.Count);
 
             int[] items = generateSearchItems(1024);
 
@@ -84,7 +64,6 @@ namespace BSTTiming
                 {
                     for (int elt = 0; elt < 1024; elt++)
                     {
-                        //num = random.Next(0, size);
                         bst.Contains(items[elt]);
                     }
                 }
@@ -107,8 +86,6 @@ namespace BSTTiming
                 {
                     for (int elt = 0; elt < 1024; elt++)
                     {
-                        //num = random.Next(0, size);
-                        //bst.Contains(elt);
                     }
                 }
                 sw.Stop();
@@ -117,13 +94,11 @@ namespace BSTTiming
             double overheadAverage = elapsed / repetitions;
             
             // Return the difference, averaged over size
-            //return (totalAverage - overheadAverage)/ size;
             return (totalAverage - overheadAverage) / 1024;
         }
 
         private static int[] generateSearchItems(int size)
         {
-            //int[] arr = new int[size];
             HashSet<int> set = new HashSet<int>();
             Random random = new Random();
             int num;
@@ -142,7 +117,8 @@ namespace BSTTiming
         private static SortedSet<int> generateTree(int size)
         {
             SortedSet<int> bst = new SortedSet<int>();
-            Random random = new Random(Guid.NewGuid().GetHashCode());
+            Random random = new Random();
+
             int number;
             for (int i = 0; i < size; i++)
             {
