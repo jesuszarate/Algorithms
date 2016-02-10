@@ -50,13 +50,15 @@ namespace CombiningArrays
                 {
                     //return select(A, $1, $2, B, $3, $4, k);
                     //return select(A, midA + 1, hiA, B, midB, hiB, k);
-                    return select(A, midA + 1, hiA, B, midB, hiB, k);
+                    //                    return select(A, midA + 1, hiA, B, midB, hiB, k);
+                    //                    return select(A, midA + 1, hiA, B, midB - hiB, midB, k); // Now try to find a smaller number for b
+                    return select(A, midA + 1, hiA, B, loB, hiB, k); // Now try to find a smaller number for b
 
                 }
                 else // k is less than mid, so we won't need anything after midpoint
                 {
                     //return select(A, $5, %6, B, $7, $8, k);
-                    return select(A, midA - hiA, midA, B, loB, hiB, k);
+                    return select(A, loA, hiA, B, loB, midB - 1, k); // Now try to find a smaller number for b
 
                 }
             }
@@ -69,16 +71,15 @@ namespace CombiningArrays
                 {
                     //return select(A, $9, $10, B, $11, $12, k);
                     //return select(A, midA, hiA, B, midB + 1, hiB, k);
-                    return select(A, midA, hiA, B, midB + 1, hiB, k);
-
+                    return select(A, loA, hiA, B, midB + 1, hiB, k); // Now try to find a smaller number for b
 
                 }
                 else
                 {
                     //return select(A, $13, $14, B, $15, $16, k);
                     //return select(A, loA, midA, B, loB + 1, midB, k);
-//                    return select(A, loA, midA, B, midB + 1, hiA, k);
-                    return select(A, loA, hiA, B, midB - hiB, midB, k);
+                    //                    return select(A, loA, midA, B, midB + 1, hiA, k);
+                    return select(A, loA, midA - 1, B, loB, hiB, k); // Now try to find a smaller number for b
 
                 }
         }

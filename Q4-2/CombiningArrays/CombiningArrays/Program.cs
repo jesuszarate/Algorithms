@@ -88,7 +88,7 @@ namespace CombiningArrays
             Test++;
             k = 3;
 
-            ans = 2;
+            ans = 3;
             res = ca.select(A, B, k);
             TestResult(res, ans, Test);
 
