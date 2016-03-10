@@ -23,7 +23,7 @@ namespace PriorityQueue
         {
             weights = new Dictionary<int, int>();
             items = new HashSet<int>[m];
-            for (int i = 0; i < m; i++)
+            for (int i = 0; i <= m; i++)
             {
                 items[i] = new HashSet<int>();
             }
@@ -31,29 +31,22 @@ namespace PriorityQueue
 
         public void insertOrUpdate(int item, int weight)
         {
-            if (weights.ContainsKey(item))
+            if (!weights.ContainsKey(item))
             {
-                int w = weights[item];
-                if(weight < w)
+                weights.Add(item, weight);
+                items[weight].Add(item);
+            }
+            else
+            {
+                int oldWeight = weights[item];
+                if (weight < oldWeight)
                 {
-                    weights[item] = weight;
+                    weights[item] = weight; // Replace weight of this item
+                    items[oldWeight].Remove(item); // Remove item from old weight
+                    items[weight].Add(item); // Add the item to its new weight
                 }
-            }   
-            /*
-            int w = weights[item];
+            }
 
-            if(!items[item].Contains(weight))
-                if (w > weight)
-                {
-                    if (weights.ContainsKey(item))
-                    {
-                        weights[item] = weight;
-                        items[item].Add(weight);
-                    }
-                    weights.Add(item, weight);
-                    items[item].Add(weight);
-                }                       
-             */
         }
 
         public int deleteMin()
@@ -61,17 +54,18 @@ namespace PriorityQueue
             if (weights.Count == 0)
                 throw new Exception("PQ is empty");
 
-            int min = weights[0];
-
-            foreach (int i in weights.Keys)
+            for (int i = 0; i < items.Length; i++)
             {
-                if (min > weights[i])
+                if (items[i].Count > 0)
                 {
-                    min = weights[i];
+                    int min = items[i].ElementAt(0);
+                    items[0].Remove(min);
+                    weights.Remove(min);
+                    return min;
                 }
             }
-            return min;
+            return -1;
         }
-            
+
     }
 }
